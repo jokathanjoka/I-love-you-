@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STANY-TXR-ZMD</title>
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/joeljamestech2/Stanx/refs/heads/main/media/background.jpg?token=GHSAT0AAAAAADDL7S6ZCUYHMKBW663KXGCY2A2CW6Q" type="image/x-icon" />
+
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- SEO Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://railway.app",
+    "logo": "https://raw.githubusercontent.com/joeljamestech2/Stanx/refs/heads/main/media/background.jpg?token=GHSAT0AAAAAADDL7S6ZCUYHMKBW663KXGCY2A2CW6Q",
+    "name": "STANY-TXR-ZMD"
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary: linear-gradient(135deg, #00d4ff, #7e00ff);
+      --bg: #000000;
+      --glass: rgba(255, 255, 255, 0.05);
+      --text: #ffffff;
+      --muted: #aaaaaa;
+      --highlight: #00ffff;
+      --radius: 16px;
+      --blur: 12px;
+      --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --glow: 0 0 15px rgba(0, 212, 255, 0.3);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: url('media/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s forwards;
+      color: var(--highlight);
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 40px;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: var(--radius);
+      color: var(--text);
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      box-shadow: var(--glow);
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: var(--primary);
+      transform: rotate(45deg);
+      z-index: 0;
+      opacity: 0.2;
+      transition: var(--transition);
+    }
+
+    .button:hover::before {
+      opacity: 0.4;
+    }
+
+    .button span {
+      z-index: 1;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 20px;
+    }
+
+    footer {
+      font-size: 0.8rem;
+      padding: 12px;
+      width: 100%;
+      text-align: center;
+      background: var(--glass);
+      backdrop-filter: blur(var(--blur));
+      box-shadow: var(--glow);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background music -->
+  <audio autoplay loop>
+    <source src="media/song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h3>CHOOSE PAIR CODE OR QR CODE</h3>
+  <div class="button-container">
+    <a href="/pair" class="button" target="_blank"><span><i class="fas fa-link"></i> PAIR-CODE</span></a>
+    <a href="/qr" class="button" target="_blank"><span><i class="fas fa-qrcode"></i> QR-CODE</span></a>
+
+    <p>REPORT ERRORS TO MY OWNER</p>
+    <a href="https://wa.me/+255775060962" class="button" target="_blank"><span><i class="fab fa-whatsapp"></i> CHAT ME</span></a>
+  </div>
+
+  <footer>
+    POWERED BY STANY-TXR-ZMD
+  </footer>
+
+</body>
+</html>

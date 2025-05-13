@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STANY ZMD BOT</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f0c29; /* will change with JS */
+      transition: background-color 1s ease-in-out;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    #content {
+      backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+      border-radius: 30px;
+      padding: 2rem;
+      text-align: center;
+      width: 90%;
+      max-width: 360px;
+    }
+
+    #loading-message {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 1rem;
+      text-transform: lowercase;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    #QR-content {
+      display: none;
+    }
+
+    #QR-content img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #title-container h2 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.7rem;
+      color: #00ffea;
+      position: relative;
+      text-transform: lowercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Glitch effect */
+    #title-container h2::before,
+    #title-container h2::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    #title-container h2::before {
+      color: #ff00c8;
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+
+    #title-container h2::after {
+      color: #00ffe1;
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(0, 9999px, 15px, 0); }
+      20% { clip: rect(5px, 9999px, 20px, 0); }
+      40% { clip: rect(10px, 9999px, 15px, 0); }
+      60% { clip: rect(15px, 9999px, 30px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(20px, 9999px, 25px, 0); }
+      30% { clip: rect(25px, 9999px, 35px, 0); }
+      50% { clip: rect(30px, 9999px, 40px, 0); }
+      80% { clip: rect(10px, 9999px, 20px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    #legend {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-transform: lowercase;
+    }
+
+    #description-container {
+      margin-top: 1.5rem;
+    }
+
+    progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 50px;
+      overflow: hidden;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    progress::-webkit-progress-value {
+      background: linear-gradient(to right, #ff00c8, #00ffe1);
+      border-radius: 50px;
+    }
+
+    .reload-button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background: linear-gradient(45deg, #ff00c8, #00ffe1);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+      text-transform: lowercase;
+      display: inline-block;
+    }
+
+    .reload-button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="content">
+    <p id="loading-message">linking your whatsapp with STANY ZMD BOT via qr code...</p>
+
+    <div id="QR-content">
+      <img id="qr-image" src="/server" alt="dynamic qr code" />
+    </div>
+
+    <div id="title-container" style="display:none;">
+      <h2 id="main" data-text="STANY ZMD BOT QR">STANY ZMD BOT QR</h2>
+      <p class="legend" id="legend">scan this glitchy code</p>
+    </div>
+
+    <div id="description-container" style="display:none;">
+      <progress value="0" max="30" id="progressBar"></progress>
+    </div>
+
+    <a href="javascript:history.go(0)" class="reload-button" style="display:none;">reload</a>
+  </div>
+
+  <!-- Background Changer Script -->
+  <script>
+    const colors = ['#0f0c29', '#302b63', '#24243e', '#1a1a2e', '#16213e', '#0f3460'];
+    let index = 0;
+
+    setInterval(() => {
+      document.body.style.backgroundColor = colors[index];
+      index = (index + 1) % colors.length;
+    }, 2000);
+  </script>
+
+  <!-- QR Timer Script -->
+  <script>
+    let timeleft = 30;
+
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById("loading-message").style.display = "none";
+        document.getElementById("QR-content").style.display = "block";
+        document.getElementById("title-container").style.display = "block";
+        document.getElementById("description-container").style.display = "block";
+        document.querySelector(".reload-button").style.display = "inline-block";
+
+        let downloadTimer = setInterval(function () {
+          if (timeleft <= 0) {
+            clearInterval(downloadTimer);
+            document.getElementById("progressBar").remove();
+            document.getElementById("main").innerHTML = "qr expired!";
+            document.getElementById("legend").innerHTML = "please reload to try again!";
+          } else {
+            document.getElementById("progressBar").value = 30 - timeleft;
+            timeleft -= 1;
+          }
+        }, 1000);
+      }, 2000);
+    };
+  </script>
+</body>
+</html>
